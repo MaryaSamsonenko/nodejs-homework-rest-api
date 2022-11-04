@@ -16,6 +16,14 @@ router.post(
   controllerWrapper(ctrl.register)
 );
 
+router.get("/verify/:verificationToken", controllerWrapper(ctrl.verify));
+
+router.post(
+  "/verify",
+  validateBody(schemas.verifyEmailSchema),
+  controllerWrapper(ctrl.resendEmail)
+);
+
 router.post(
   "/login",
   validateBody(schemas.loginSchema),
