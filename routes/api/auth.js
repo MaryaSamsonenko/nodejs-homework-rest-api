@@ -2,7 +2,7 @@ const express = require("express");
 
 const { controllerWrapper } = require("../../helpers");
 
-const { validateBody, authenticate } = require("../../middlewares");
+const { validateBody, authenticate, upload } = require("../../middlewares");
 
 const { schemas } = require("../../models/user");
 
@@ -25,5 +25,12 @@ router.post(
 router.get("/current", authenticate, controllerWrapper(ctrl.getCurrent));
 
 router.get("/logout", authenticate, controllerWrapper(ctrl.logout));
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  controllerWrapper(ctrl.updateAvatar)
+);
 
 module.exports = router;
